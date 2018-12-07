@@ -76,4 +76,24 @@ describe('Queue', () => {
       assert.equal(queue.peek(), null);
     });
   });
+
+  describe('Queue.length', () => {
+    it('should return the length of hte queue', () => {
+      const queue = createQueue();
+      assert.equal(queue.length, 0);
+      const items = ['item1', 'item2', 'item3'];
+      for (let i = 0; i < items.length; i++) {
+        queue.enqueue(items[i]);
+        assert.equal(queue.length, i + 1);
+      }
+
+      assert.equal(queue.length, items.length);
+    });
+
+    it('should not set', () => {
+      const queue = createQueue();
+      queue.length = 20;
+      assert.equal(queue.length, 0);
+    });
+  })
 });
