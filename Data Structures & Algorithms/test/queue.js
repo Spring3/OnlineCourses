@@ -51,10 +51,9 @@ describe('Queue', () => {
         queue.enqueue(item);
       }
 
-      while(!queue.isEmpty()) {
-        assert.equal(queue.dequeue(), items[0]);
-      }
-
+      assert.equal(queue.dequeue(), items[0]);
+      assert.equal(queue.dequeue(), items[1]);
+      assert.equal(queue.dequeue(), items[2]);
       assert.equal(queue.dequeue(), null);
     });
   });
@@ -63,14 +62,15 @@ describe('Queue', () => {
     it('should return the next item to be dequeued', () => {
       const queue = createQueue();
       const items = ['person1', 'person2', 'person3'];
-      for (const item of items) {
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
         queue.enqueue(item);
         assert.equal(queue.peek(), items[0]);
       }
       
-      while (!queue.isEmpty()) {
+      for (let i = 0; i < items.length; i++) {
+        assert.equal(queue.peek(), items[i]);
         queue.dequeue();
-        assert.equal(queue.peek(), items[0]);
       }
 
       assert.equal(queue.peek(), null);
