@@ -1,0 +1,18 @@
+{
+  "name": "data-structure-and-algorithms-sandbox",
+  "version": "1.0.0",
+  "description": "Sandbox for me repeating the data structures and algorithms",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nyc mocha"
+  },
+  "author": "Spring3",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  }
+}
