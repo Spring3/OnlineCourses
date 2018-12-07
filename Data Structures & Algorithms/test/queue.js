@@ -17,6 +17,7 @@ describe('Queue', () => {
     assert.equal(typeof queue.enqueue, 'function');
     assert.equal(typeof queue.dequeue, 'function');
     assert.equal(typeof queue.peek, 'function');
+    assert.equal(typeof queue.length, 'number');
     assert.equal(typeof queue.isEmpty, 'function');
   });
 
