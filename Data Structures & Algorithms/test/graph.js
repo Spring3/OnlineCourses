@@ -7,8 +7,8 @@ describe('Graph', () => {
     const graph = createGraph();
     assert(graph);
     assert.equal(typeof graph, 'object');
-    assert.equal(Array.isArray(graph.nodes));
-    assert.equal(Array.isArray(graph.edges));
+    assert(Array.isArray(graph.nodes));
+    assert(Array.isArray(graph.edges));
     assert.equal(graph.isDirected, false);
     assert.equal(typeof graph.addNode, 'function');
     assert.equal(typeof graph.getNode, 'function');
@@ -41,7 +41,7 @@ describe('Graph', () => {
       const node = graph.getNode('Node 1');
       assert.equal(typeof node, 'object');
       assert.equal(node.key, 'Node 1');
-      assert.equal(node.neighbors.length, 2);
+      assert.equal(node.neighbors.length, 0);
       assert.equal(typeof node.addNeighbor, 'function');
     });
 
@@ -59,10 +59,19 @@ describe('Graph', () => {
       graph.addNode('Node 2');
       const node1 = graph.getNode('Node 1');
       const node2 = graph.getNode('Node 2');
-      graph.addEdge(node1, node2);
+      graph.addEdge('Node 1', 'Node 2');
 
+      assert(graph.edges.includes('Node 1 -> Node 2'));
       assert.equal(node1.neighbors.length, node2.neighbors.length);
       assert.equal(node1.neighbors.length, 1);
+    });
+
+    it('should not do anything if node(s) don\'t exist in the graph', () => {
+      const graph = createGraph();
+      graph.addEdge('Node1', 'Node2');
+      assert.equal(graph.nodes.length, 0);
+      assert.equal(graph.getNode('Node1'), null);
+      assert.equal(graph.getNode('Node2'), null);
     });
 
     it('should not add connect nodes bidirectionally if the graph is directed', () => {
@@ -71,7 +80,8 @@ describe('Graph', () => {
       graph.addNode('Node 2');
       const node1 = graph.getNode('Node 1');
       const node2 = graph.getNode('Node 2');
-      graph.addEdge(node1, node2);
+      graph.addEdge('Node 1', 'Node 2');
+      assert(graph.edges.includes('Node 1 -> Node 2'));
       
       assert.equal(node1.neighbors.length, 1);
       assert.equal(node2.neighbors.length, 0);
