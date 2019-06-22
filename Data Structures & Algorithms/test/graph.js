@@ -87,4 +87,41 @@ describe('Graph', () => {
       assert.equal(node2.neighbors.length, 0);
     });
   });
+
+  describe('Graph.breadthFirstSearch', () => {
+    it('should find the target node', () => {
+      const graph = createGraph(true);
+      graph.addNode('a');
+      graph.addNode('b');
+      graph.addNode('c');
+      graph.addNode('d');
+      graph.addNode('e');
+      graph.addNode('f');
+
+      /*
+          a------>b<----c
+          | \    | \    ^    
+          |  \   |  \   |
+          |    \ |   \  |
+          v     vv     v|
+          f      e<-----d
+      */
+      graph.addEdge('a', 'b');
+      graph.addEdge('a', 'f');
+      graph.addEdge('a', 'e');
+      graph.addEdge('b', 'e');
+      graph.addEdge('b', 'd');
+      graph.addEdge('d', 'e');
+      graph.addEdge('d', 'c');
+      graph.addEdge('c', 'b');
+
+      const expectedRoute = ['a', 'b', 'f', 'e', 'd', 'c'];
+      const route = [];
+
+      graph.breadthFirstSearch('a', (node) => {
+        route.push(node.key);
+      });
+      assert.deepEqual(route, expectedRoute);
+    });
+  });
 });

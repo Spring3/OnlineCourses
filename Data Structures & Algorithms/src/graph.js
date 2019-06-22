@@ -1,3 +1,5 @@
+const { createQueue } = require('./queue');
+
 function createNode(key) {
   const neighbors = [];
   return {
@@ -32,6 +34,30 @@ function createGraph(isDirected = false) {
 
         if (!this.isDirected) {
           node2.addNeighbor(node1);
+        }
+      }
+    },
+    breadthFirstSearch(startNodeKey, visitFn) {
+      const startNode = this.getNode(startNodeKey);
+      const visitedNodes = nodes.reduce((acc, node) => {
+        acc[node.key] = false;
+        return acc;
+      }, {});
+
+      const queue = createQueue();
+      queue.enqueue(startNode);
+
+      while(!queue.isEmpty()) {
+        const currentNode = queue.dequeue();
+        if (!visitedNodes[currentNode.key]) {
+          visitFn(currentNode);
+          visitedNodes[currentNode.key] = true;
+        }
+
+        for (const neighborNode of currentNode.neighbors) {
+          if (!visitedNodes[neighborNode.key]) {
+            queue.enqueue(neighborNode);
+          }
         }
       }
     }
