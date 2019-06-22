@@ -13,6 +13,8 @@ describe('Graph', () => {
     assert.equal(typeof graph.addNode, 'function');
     assert.equal(typeof graph.getNode, 'function');
     assert.equal(typeof graph.addEdge, 'function');
+    assert.equal(typeof graph.depthFirstSearch, 'function');
+    assert.equal(typeof graph.breadthFirstSearch, 'function');
   });
 
   it('should take the isDirected parameter', () => {
