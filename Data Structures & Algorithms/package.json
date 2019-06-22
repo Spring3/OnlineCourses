@@ -12,7 +12,9 @@
   "author": "Spring3",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0"
-  }
+    "expect.js": "^0.3.1",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
+  },
+  "dependencies": {}
 }
