@@ -89,7 +89,7 @@ describe('Graph', () => {
   });
 
   describe('Graph.breadthFirstSearch', () => {
-    it('should find the target node', () => {
+    it('should perform serach', () => {
       const graph = createGraph(true);
       graph.addNode('a');
       graph.addNode('b');
@@ -121,6 +121,42 @@ describe('Graph', () => {
       graph.breadthFirstSearch('a', (node) => {
         route.push(node.key);
       });
+      assert.deepEqual(route, expectedRoute);
+    });
+  });
+
+  describe('Graph.depthFirstSearch', () => {
+    it('should perform search', () => {
+      const graph = createGraph(true);
+      graph.addNode('a');
+      graph.addNode('b');
+      graph.addNode('c');
+      graph.addNode('d');
+      graph.addNode('e');
+      graph.addNode('f');
+
+      /*
+          a------>b<----c
+          | \    | \    ^    
+          |  \   |  \   |
+          |    \ |   \  |
+          v     vv     v|
+          f      e<-----d
+      */
+      graph.addEdge('a', 'b');
+      graph.addEdge('a', 'f');
+      graph.addEdge('a', 'e');
+      graph.addEdge('b', 'e');
+      graph.addEdge('b', 'd');
+      graph.addEdge('d', 'e');
+      graph.addEdge('d', 'c');
+      graph.addEdge('c', 'b');
+
+      const expectedRoute = ['a', 'b', 'e', 'd', 'c', 'f'];
+      const route = [];
+      graph.depthFirstSearch('a', (node) => {
+        route.push(node.key);
+      })
       assert.deepEqual(route, expectedRoute);
     });
   });

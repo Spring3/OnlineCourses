@@ -48,18 +48,40 @@ function createGraph(isDirected = false) {
       queue.enqueue(startNode);
 
       while(!queue.isEmpty()) {
-        const currentNode = queue.dequeue();
-        if (!visitedNodes[currentNode.key]) {
-          visitFn(currentNode);
-          visitedNodes[currentNode.key] = true;
+        const node = queue.dequeue();
+        if (!visitedNodes[node.key]) {
+          visitFn(node);
+          visitedNodes[node.key] = true;
         }
 
-        for (const neighborNode of currentNode.neighbors) {
+        for (const neighborNode of node.neighbors) {
           if (!visitedNodes[neighborNode.key]) {
             queue.enqueue(neighborNode);
           }
         }
       }
+    },
+    depthFirstSearch(startNodeKey, visitFn) {
+      const startNode = this.getNode(startNodeKey);
+      const visitedNodes = nodes.reduce((acc, node) => {
+        acc[node.key] = false;
+        return acc;
+      }, {});
+
+      function explore(node) {
+        if (visitedNodes[node.key]) {
+          return;
+        }
+
+        visitFn(node);
+        visitedNodes[node.key] = true;
+
+        for (const neighborNode of node.neighbors) {
+          explore(neighborNode);
+        }
+      }
+
+      explore(startNode);
     }
   }
 }
