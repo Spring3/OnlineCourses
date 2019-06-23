@@ -1,5 +1,6 @@
 const { bubbleSort } = require('../src/bubbleSort');
 const { insertionSort } = require('../src/insertionSort');
+const { mergeSort } = require('../src/mergeSort');
 
 function generateArray() {
   const array = [];
@@ -25,6 +26,11 @@ describe('Sorting', () => {
 
   it('insertion sort', () => {
     const sortedArray = insertionSort(generateArray());
+    validateSorting(sortedArray);
+  });
+
+  it('merge sort', () => {
+    const sortedArray = mergeSort(generateArray());
     validateSorting(sortedArray);
   });
 });
