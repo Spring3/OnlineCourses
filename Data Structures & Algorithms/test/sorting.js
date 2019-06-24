@@ -33,4 +33,9 @@ describe('Sorting', () => {
     const sortedArray = mergeSort(generateArray());
     validateSorting(sortedArray);
   });
+
+  it('quick sort', () => {
+    const sortedArray = mergeSort(generateArray());
+    validateSorting(sortedArray);
+  })
 });
