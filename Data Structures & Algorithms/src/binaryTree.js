@@ -40,6 +40,17 @@ const Traversals = {
   }
 }
 
+function invertTree(node) {
+  if (node !== null) {
+    const left = invertTree(node.left);
+    const right = invertTree(node.right);
+    node.left = right;
+    node.right = left;
+    return node;
+  }
+  return null;
+}
+
 function createBinaryTree(rootKey) {
   const root = createNode(rootKey);
   return {
@@ -54,18 +65,11 @@ function createBinaryTree(rootKey) {
       
       Traversals[traversal](this.root, visit);
       return result;
+    },
+    invert() {
+      return invertTree(this.root);
     }
   };
 }
-
-const tree = createBinaryTree('a');
-const b = tree.root.addLeft('b');
-const c = tree.root.addRight('c');
-const d = b.addLeft('d');
-const e = b.addRight('e');
-const h = d.addLeft('h');
-const i = d.addRight('i');
-const f = c.addLeft('f');
-const g = c.addRight('g');
 
 module.exports = { createBinaryTree };

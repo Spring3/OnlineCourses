@@ -54,4 +54,20 @@ describe('Binary Tree', () => {
 
     expect(tree.print('POST_ORDER')).to.be('h -> i -> d -> e -> b -> f -> g -> c -> a');
   });
+
+  it('should invert the tree', () => {
+    const tree = createBinaryTree('a');
+    const b = tree.root.addLeft('b');
+    const c = tree.root.addRight('c');
+    const d = b.addLeft('d');
+    const e = b.addRight('e');
+    const h = d.addLeft('h');
+    const i = d.addRight('i');
+    const f = c.addLeft('f');
+    const g = c.addRight('g');
+
+    const visualisation = tree.print();
+    tree.invert();
+    expect(tree.print()).to.be(visualisation.split(' -> ').reverse().join(' -> '))
+  });
 });
